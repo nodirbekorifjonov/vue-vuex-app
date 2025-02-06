@@ -46,6 +46,8 @@
 <script>
 import { RouterLink } from "vue-router";
 import ValidationError from "../validation/ValidationError.vue";
+import { mapState } from "vuex";
+import store from "@/store";
 
 export default {
   components: { ValidationError },
@@ -57,12 +59,10 @@ export default {
     };
   },
   computed: {
-    isLoading() {
-      return this.$store.state.auth.isLoading;
-    },
-    validationErrors() {
-      return this.$store.state.auth.errors;
-    },
+    ...mapState({
+      isLoading: (state) => state.auth.isLoading,
+      validationErrors: (state) => state.auth.errors,
+    }),
   },
   methods: {
     submitHandler() {

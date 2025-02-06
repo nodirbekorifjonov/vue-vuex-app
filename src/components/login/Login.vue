@@ -1,6 +1,6 @@
 <template>
   <main class="form-signin w-25 m-auto mt-5">
-    <form>
+    <form @submit.prevent="submitHandler">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="40"
@@ -16,20 +16,65 @@
         />
       </svg>
       <h1 class="h3 mb-3 fw-normal mt-3">Login</h1>
-      <Input :label="'Email address'" :type="'email'" />
-      <Input :label="'Password'" :type="'password'" class="mt-2" />
+      <ValidationError
+        v-if="validationErrors"
+        :validationErrors="validationErrors"
+      />
+      <Input :label="'Email address'" :type="'email'" v-model="email" />
+      <Input
+        :label="'Password'"
+        :type="'password'"
+        class="mt-2"
+        v-model="password"
+      />
       <RouterLink :to="{ name: 'register' }" class="text-start mt-2 d-block"
         >Can't login? Register</RouterLink
       >
-      <Button type="submit">Login</Button>
+      <Button type="submit" :disabled="isLoading">Login</Button>
     </form>
   </main>
 </template>
 
 <script>
 import { RouterLink } from "vue-router";
+import ValidationError from "../validation/ValidationError.vue";
+import { mapState } from "vuex";
 
-export default {};
+export default {
+  data() {
+    return {
+      email: "",
+      password: "",
+    };
+  },
+  components: {
+    ValidationError,
+  },
+  computed: {
+    ...mapState({
+      isLoading: (state) => state.auth.isLoading,
+      validationErrors: (state) => state.auth.errors,
+    }),
+  },
+
+  methods: {
+    submitHandler() {
+      const data = {
+        email: this.email,
+        password: this.password,
+      };
+      this.$store
+        .dispatch("login", data)
+        .then((user) => {
+          this.$router.push({ name: "home" });
+          console.log(user);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
+};
 </script>
 
 <style></style>

@@ -22,7 +22,7 @@ export default {
     errorMessages() {
       return Object.keys(this.validationErrors).map((name) => {
         const msg = this.validationErrors[name].join(", ");
-        return `${msg}`;
+        return `${name} ${msg}`;
       });
     },
   },
