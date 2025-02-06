@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     submitHandler() {
-      this.$store.commit("setLoading");
+      this.$store.dispatch("register");
     },
   },
 };
