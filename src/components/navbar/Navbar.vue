@@ -28,10 +28,10 @@
           :to="{ name: 'home' }"
           class="me-3 py-2 link-body-emphasis text-decoration-none"
         >
-          {{ user.username }}
+          {{ currentUser.username }}
         </RouterLink>
       </template>
-      <template v-if="!isLoggedIn">
+      <template v-if="isAnonymous">
         <RouterLink
           :to="{ name: 'login' }"
           class="me-3 py-2 link-body-emphasis text-decoration-none"
@@ -50,13 +50,15 @@
 
 <script>
 import { RouterLink } from "vue-router";
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
+import { gettersTypes } from "@/modules/types";
 
 export default {
   computed: {
-    ...mapState({
-      user: (state) => state.auth.user,
-      isLoggedIn: (state) => state.auth.isLoggedIn,
+    ...mapGetters({
+      currentUser: gettersTypes.currentUser,
+      isLoggedIn: gettersTypes.isLoggedIn,
+      isAnonymous: gettersTypes.isAnonymous,
     }),
   },
 };
