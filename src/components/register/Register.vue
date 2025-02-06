@@ -16,6 +16,12 @@
         />
       </svg>
       <h1 class="h3 mb-3 fw-normal mt-3">Register</h1>
+
+      <ValidationError
+        v-if="validationErrors"
+        :validationErrors="validationErrors"
+      />
+
       <Input :label="'Username'" :type="'text'" v-model="username" />
       <Input
         :label="'Email address'"
@@ -39,8 +45,10 @@
 
 <script>
 import { RouterLink } from "vue-router";
+import ValidationError from "../validation/ValidationError.vue";
 
 export default {
+  components: { ValidationError },
   data() {
     return {
       username: "",
@@ -51,6 +59,9 @@ export default {
   computed: {
     isLoading() {
       return this.$store.state.auth.isLoading;
+    },
+    validationErrors() {
+      return this.$store.state.auth.errors;
     },
   },
   methods: {
