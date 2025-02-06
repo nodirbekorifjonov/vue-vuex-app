@@ -16,9 +16,19 @@
         />
       </svg>
       <h1 class="h3 mb-3 fw-normal mt-3">Register</h1>
-      <Input :label="'Username'" :type="'text'" />
-      <Input :label="'Email address'" :type="'email'" class="mt-2" />
-      <Input :label="'Password'" :type="'password'" class="mt-2" />
+      <Input :label="'Username'" :type="'text'" v-model="username" />
+      <Input
+        :label="'Email address'"
+        :type="'email'"
+        class="mt-2"
+        v-model="email"
+      />
+      <Input
+        :label="'Password'"
+        :type="'password'"
+        class="mt-2"
+        v-model="password"
+      />
       <RouterLink :to="{ name: 'login' }" class="text-start mt-2 d-block"
         >Already have an account? Login</RouterLink
       >
@@ -31,6 +41,13 @@
 import { RouterLink } from "vue-router";
 
 export default {
+  data() {
+    return {
+      username: "",
+      email: "",
+      password: "",
+    };
+  },
   computed: {
     isLoading() {
       return this.$store.state.auth.isLoading;
@@ -39,13 +56,16 @@ export default {
   methods: {
     submitHandler() {
       const data = {
-        username: "jumavfsoy",
-        email: "insfdspf52s@samsd.ax",
-        password: "01234567",
+        username: this.username,
+        email: this.email,
+        password: this.password,
       };
       this.$store
         .dispatch("register", data)
-        .then((user) => console.log(user))
+        .then((user) => {
+          console.log(user);
+          this.$router.push({ name: "home" });
+        })
         .catch((err) => console.log(err));
     },
   },
