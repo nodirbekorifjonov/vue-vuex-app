@@ -38,7 +38,15 @@ export default {
   },
   methods: {
     submitHandler() {
-      this.$store.dispatch("register");
+      const data = {
+        username: "jumavfsoy",
+        email: "insfdspf52s@samsd.ax",
+        password: "01234567",
+      };
+      this.$store
+        .dispatch("register", data)
+        .then((user) => console.log(user))
+        .catch((err) => console.log(err));
     },
   },
 };
