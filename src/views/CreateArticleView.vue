@@ -7,7 +7,7 @@
       </Textarea>
       <Textarea type="text" label="Body" v-model="body"></Textarea>
 
-      <Button type="submit" @click="createArticleHandler">
+      <Button type="submit" @click="createArticleHandler" :disabled="isLoading">
         Create article
       </Button>
     </form>
@@ -15,6 +15,8 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   data() {
     return {
@@ -31,9 +33,17 @@ export default {
         body: this.body,
         tagList: [],
       };
-
-      console.log(article);
+      this.$store.dispatch("createArticle", article);
+      this.$router.push({ name: "home" });
+      // this.title = "";
+      // this.description = "";
+      // this.body = "";
     },
+  },
+  computed: {
+    ...mapState({
+      isLoading: (state) => state.control.isLoading,
+    }),
   },
 };
 </script>
