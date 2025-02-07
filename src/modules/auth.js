@@ -54,6 +54,19 @@ const mutations = {
     state.errors = payload.errors;
     state.isLoggedIn = false;
   },
+  currentUserStart(state) {
+    state.isLoading = true;
+  },
+  currentUserSuccess(state, payload) {
+    state.isLoading = false;
+    state.user = payload;
+    state.isLoggedIn = true;
+  },
+  currentUserFailure(state) {
+    state.isLoading = false;
+    state.user = null;
+    state.isLoggedIn = false;
+  },
 };
 
 const actions = {
@@ -84,6 +97,19 @@ const actions = {
         .catch((error) => {
           context.commit("loginFailure", error.response.data);
           reject(error.response.data);
+        });
+    });
+  },
+  getUser(context) {
+    return new Promise((resolve) => {
+      context.commit("currentUserStart");
+      AuthService.getUser()
+        .then((response) => {
+          context.commit("currentUserSuccess", response.data.user);
+          resolve(response.data.user);
+        })
+        .catch(() => {
+          context.commit("currentUserFailure");
         });
     });
   },
