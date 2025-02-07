@@ -33,11 +33,10 @@ export default {
         body: this.body,
         tagList: [],
       };
-      this.$store.dispatch("createArticle", article);
+      this.$store
+        .dispatch("createArticle", article)
+        .then(() => this.$store.dispatch("articles"));
       this.$router.push({ name: "home" });
-      // this.title = "";
-      // this.description = "";
-      // this.body = "";
     },
   },
   computed: {
