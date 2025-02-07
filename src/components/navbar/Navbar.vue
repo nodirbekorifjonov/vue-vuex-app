@@ -30,6 +30,12 @@
         >
           {{ currentUser.username }}
         </RouterLink>
+        <span
+          class="me-3 py-2 link-body-emphasis text-decoration-none cursor-pointer"
+          @click="logout"
+        >
+          Loguot
+        </span>
       </template>
       <template v-if="isAnonymous">
         <RouterLink
@@ -61,7 +67,16 @@ export default {
       isAnonymous: gettersTypes.isAnonymous,
     }),
   },
+  methods: {
+    logout() {
+      return this.$store.dispatch("logout");
+    },
+  },
 };
 </script>
 
-<style></style>
+<style>
+.cursor-pointer {
+  cursor: pointer;
+}
+</style>

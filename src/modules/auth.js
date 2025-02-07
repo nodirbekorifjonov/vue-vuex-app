@@ -1,4 +1,4 @@
-import { setItem } from "@/helpers/persistanceStorage";
+import { removeItem, setItem } from "@/helpers/persistanceStorage";
 import AuthService from "@/service/auth";
 import { gettersTypes } from "./types";
 
@@ -67,6 +67,10 @@ const mutations = {
     state.user = null;
     state.isLoggedIn = false;
   },
+  logout(state) {
+    state.user = null;
+    state.isLoggedIn = false;
+  },
 };
 
 const actions = {
@@ -112,6 +116,10 @@ const actions = {
           context.commit("currentUserFailure");
         });
     });
+  },
+  logout(context) {
+    context.commit("logout");
+    removeItem("token");
   },
 };
 
