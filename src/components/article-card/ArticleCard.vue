@@ -24,13 +24,15 @@
         <div class="d-flex justify-content-between align-items-center">
           <div class="btn-group">
             <button type="button" class="btn btn-sm btn-outline-secondary">
-              View
+              Read article
             </button>
-            <button type="button" class="btn btn-sm btn-outline-secondary">
+            <!-- <button type="button" class="btn btn-sm btn-outline-secondary">
               Edit
-            </button>
+            </button> -->
           </div>
-          <small class="text-body-secondary">9 mins</small>
+          <small class="text-body-secondary">{{
+            new Date(article.createdAt).toLocaleDateString("us")
+          }}</small>
         </div>
       </div>
     </div>
