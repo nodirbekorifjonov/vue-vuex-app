@@ -31,14 +31,15 @@
               Read article
             </button>
             <button
-              v-if="article.author.username === user.username"
+              v-if="article.author.username == user.username"
               type="button"
               class="btn btn-sm btn-outline-success"
+              @click="navigateEditHandler"
             >
               Edit
             </button>
             <button
-              v-if="article.author.username === user.username"
+              v-if="article.author.username == user.username"
               type="button"
               class="btn btn-sm btn-outline-danger"
               @click="deleteArticle"
@@ -74,6 +75,9 @@ export default {
       this.$store.dispatch("deleteArticle", this.article.slug).then(() => {
         this.$store.dispatch("articles");
       });
+    },
+    navigateEditHandler() {
+      return this.$router.push(`/edit-article/${this.article.slug}`);
     },
   },
   computed: {

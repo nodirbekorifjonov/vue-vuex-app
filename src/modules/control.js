@@ -39,6 +39,19 @@ const actions = {
         .catch(() => context.commit("controlArticleFailure"));
     });
   },
+  editArticle(context, data) {
+    return new Promise((resolve) => {
+      context.commit("controlArticleStart");
+      ArticleService.editArticle(data.article, data.slug)
+        .then(() => {
+          context.commit("controlArticleSuccess");
+          resolve();
+        })
+        .catch(() => {
+          context.commit("controlArticleFailure");
+        });
+    });
+  },
 };
 
 export default {
