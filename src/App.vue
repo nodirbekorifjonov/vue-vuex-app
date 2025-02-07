@@ -10,6 +10,7 @@
 <script>
 import { Navbar } from "@/components";
 import { RouterView } from "vue-router";
+import { mapState } from "vuex";
 export default {
   components: {
     Navbar,
