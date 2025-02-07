@@ -23,7 +23,11 @@
         </p>
         <div class="d-flex justify-content-between align-items-center">
           <div class="btn-group">
-            <button type="button" class="btn btn-sm btn-outline-secondary">
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-secondary"
+              @click="navigateHandler"
+            >
               Read article
             </button>
             <!-- <button type="button" class="btn btn-sm btn-outline-secondary">
@@ -45,6 +49,11 @@ export default {
     article: {
       type: Object,
       required: true,
+    },
+  },
+  methods: {
+    navigateHandler() {
+      return this.$router.push(`/article/${this.article.slug}`);
     },
   },
 };
